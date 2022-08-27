@@ -1,0 +1,2 @@
+html{height:100vh}body{height:100%}.container{width:100%;justify-content:center;display:flex}.button{text-transform:uppercase;cursor:pointer;height:unset;border:.5px solid #000;border-radius:5px;padding:20px;font-weight:700;transition:all .25s linear}.button:not(:last-child){margin-right:20px}
+/*# sourceMappingURL=01-color-switcher.cec95fa9.css.map */
