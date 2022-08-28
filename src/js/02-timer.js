@@ -3,24 +3,6 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import "flatpickr/dist/flatpickr.min.css";
 
-const options = {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
-    onClose(selectedDates) {
-                const currentDate = new Date();
-                selectedDate = selectedDates[0];
-                if (selectedDate < currentDate) {
-                    startBtn.setAttribute('disabled', true)
-                    Notify.failure('Please choose a date in the future');
-                } else {
-                    Notify.success('Thank you. Press "START"');
-                    startBtn.removeAttribute('disabled');
-                }
-        },
-}
-
 const refs = {
     startBtn: document.querySelector('[data-start]'),
     timerData: {
@@ -55,7 +37,7 @@ const refs = {
                 return
             }            
             this.intervalId = setInterval(() => {
-                const deltaTime = new Date(selectedDate).getTime() - Date.now();
+                const deltaTime = new Date(this.selectedDate).getTime() - Date.now();
                 refs.timer.getTimeData(deltaTime);
                 refs.timerData.seconds.textContent = this.sec;
                 refs.timerData.minutes.textContent = this.mins;
@@ -65,6 +47,25 @@ const refs = {
         }
     },
 }
+
+const options = {
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: new Date(),
+    minuteIncrement: 1,
+    onClose(selectedDates) {
+        const currentDate = new Date();
+        refs.timer.selectedDate = selectedDates[0];
+        if (refs.timer.selectedDate < currentDate) {
+            startBtn.setAttribute('disabled', true)
+            Notify.failure('Please choose a date in the future');
+        } else {
+            Notify.success('Thank you. Press "START"');
+            startBtn.removeAttribute('disabled');
+        }
+        },
+}
+
 const { startBtn, timer, timerData } = refs;
 const fp = flatpickr("#datetime-picker", options);
 
