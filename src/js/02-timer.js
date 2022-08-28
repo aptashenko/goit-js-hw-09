@@ -2,21 +2,13 @@ import flatpickr from "flatpickr";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import "flatpickr/dist/flatpickr.min.css";
-//
-const refs = {
-    startBtn: document.querySelector('[data-start]'),
-    timerData: {
-        days: document.querySelector('[data-days]'),
-        hours: document.querySelector('[data-hours]'),
-        minutes: document.querySelector('[data-minutes]'),
-        seconds: document.querySelector('[data-seconds]'),
-    },
-    options: {
-        enableTime: true,
-        time_24hr: true,
-        defaultDate: new Date(),
-        minuteIncrement: 1,
-            onClose(selectedDates) {
+
+const options = {
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: new Date(),
+    minuteIncrement: 1,
+    onClose(selectedDates) {
                 const currentDate = new Date();
                 selectedDate = selectedDates[0];
                 if (selectedDate < currentDate) {
@@ -27,6 +19,15 @@ const refs = {
                     startBtn.removeAttribute('disabled');
                 }
         },
+}
+
+const refs = {
+    startBtn: document.querySelector('[data-start]'),
+    timerData: {
+        days: document.querySelector('[data-days]'),
+        hours: document.querySelector('[data-hours]'),
+        minutes: document.querySelector('[data-minutes]'),
+        seconds: document.querySelector('[data-seconds]'),
     },
     prettyTime(val) {
         return String(val).padStart(2, 0);
@@ -64,7 +65,7 @@ const refs = {
         }
     },
 }
-const { startBtn, options, timer, timerData } = refs;
+const { startBtn, timer, timerData } = refs;
 const fp = flatpickr("#datetime-picker", options);
 
 startBtn.addEventListener('click', () => {
